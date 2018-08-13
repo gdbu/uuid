@@ -47,6 +47,16 @@ func BenchmarkUUID(b *testing.B) {
 	b.ReportAllocs()
 }
 
+func BenchmarkUUIDParallel(b *testing.B) {
+	b.RunParallel(func(pb *testing.PB) {
+		for pb.Next() {
+			uuidSink = New()
+		}
+	})
+
+	b.ReportAllocs()
+}
+
 func BenchmarkUUIDString(b *testing.B) {
 	u := New()
 	for i := 0; i < b.N; i++ {
@@ -60,6 +70,16 @@ func BenchmarkMeteora(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		meteoraSink = meteora.New()
 	}
+
+	b.ReportAllocs()
+}
+
+func BenchmarkUUIDMeteora(b *testing.B) {
+	b.RunParallel(func(pb *testing.PB) {
+		for pb.Next() {
+			meteoraSink = meteora.New()
+		}
+	})
 
 	b.ReportAllocs()
 }
