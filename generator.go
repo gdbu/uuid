@@ -9,6 +9,7 @@ import (
 // NewGenerator returns a new generator
 func NewGenerator() *Generator {
 	var g Generator
+	// Set random from a newly generated seed
 	g.rnd = rand.New(rand.NewSource(generateSeed()))
 	return &g
 }
@@ -21,8 +22,12 @@ type Generator struct {
 
 // New returns a new UUID
 func (g *Generator) New() (u UUID) {
+	// Acquire lock
 	g.mu.Lock()
+	// Create a new UUID from a random Int64 value
+	// Note: This value is actually int63, but that's OK because newUUID truncates this to int48.
 	u = newUUID(g.rnd.Int63())
+	// Release lock
 	g.mu.Unlock()
 	return
 }

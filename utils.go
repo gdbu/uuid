@@ -15,10 +15,13 @@ func toValue(bs []byte) (value int64) {
 }
 
 func prependByte(bs []byte, b byte) {
+	// Iterate through byteslice in reverse, starting at the second to last value
 	for i := len(bs) - 2; i > -1; i-- {
+		// Set next index as the current index
 		bs[i+1] = bs[i]
 	}
 
+	// Set the first index as the provided byte
 	bs[0] = b
 }
 
@@ -28,15 +31,20 @@ func removeByte(bs []byte, i int) {
 		panic("invalid index, cannot be negative")
 	}
 
+	// Iterate through all values starting at i, ending at the second to last value
 	for ; i < len(bs)-1; i++ {
+		// Set current index as the value from the following index
 		bs[i] = bs[i+1]
 	}
 
+	// Set last byte in byteslice to zero-value
 	bs[len(bs)-1] = 0
 }
 
 func generateSeed() (seed int64) {
 	var buf [8]byte
+	// Read 8 random bytes to our buffer
 	crand.Read(buf[:])
+	// Parse a base64 uint64 from the created bytes
 	return int64(binary.LittleEndian.Uint64(buf[:]))
 }
