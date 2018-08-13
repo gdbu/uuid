@@ -3,6 +3,14 @@ package uuid
 import (
 	"encoding/json"
 	"testing"
+
+	meteora "github.com/missionMeteora/uuid"
+)
+
+var (
+	uuidSink    UUID
+	meteoraSink meteora.UUID
+	stringSink  string
 )
 
 func TestUUID(t *testing.T) {
@@ -29,6 +37,40 @@ func TestUUID(t *testing.T) {
 	if ts != nts {
 		t.Fatalf("Invalid value, expected %v and received %v", ts, nts)
 	}
+}
+
+func BenchmarkUUID(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		uuidSink = New()
+	}
+
+	b.ReportAllocs()
+}
+
+func BenchmarkUUIDString(b *testing.B) {
+	u := New()
+	for i := 0; i < b.N; i++ {
+		stringSink = u.String()
+	}
+
+	b.ReportAllocs()
+}
+
+func BenchmarkMeteora(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		meteoraSink = meteora.New()
+	}
+
+	b.ReportAllocs()
+}
+
+func BenchmarkMeteoraString(b *testing.B) {
+	u := meteora.New()
+	for i := 0; i < b.N; i++ {
+		stringSink = u.String()
+	}
+
+	b.ReportAllocs()
 }
 
 // testStruct is used to simulate a struct including a UUID
