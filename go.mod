@@ -1,3 +1,3 @@
 module github.com/Hatch1fy/uuid
 
-go 1.13
+go 1.14
