@@ -3,13 +3,10 @@ package uuid
 import (
 	"encoding/json"
 	"testing"
-
-	meteora "github.com/missionMeteora/uuid"
 )
 
 var (
 	uuidSink    UUID
-	meteoraSink meteora.UUID
 	stringSink  string
 )
 
@@ -59,33 +56,6 @@ func BenchmarkUUIDParallel(b *testing.B) {
 
 func BenchmarkUUIDString(b *testing.B) {
 	u := New()
-	for i := 0; i < b.N; i++ {
-		stringSink = u.String()
-	}
-
-	b.ReportAllocs()
-}
-
-func BenchmarkMeteora(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		meteoraSink = meteora.New()
-	}
-
-	b.ReportAllocs()
-}
-
-func BenchmarkUUIDMeteora(b *testing.B) {
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			meteoraSink = meteora.New()
-		}
-	})
-
-	b.ReportAllocs()
-}
-
-func BenchmarkMeteoraString(b *testing.B) {
-	u := meteora.New()
 	for i := 0; i < b.N; i++ {
 		stringSink = u.String()
 	}
