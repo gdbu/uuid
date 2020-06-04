@@ -62,8 +62,8 @@ func (u *UUID) String() (out string) {
 	return
 }
 
-// MSString will return the microsoft format string representation of a UUID
-func (u *UUID) MSString() (out string) {
+// ExtendedString will return the microsoft format string representation of a UUID
+func (u *UUID) ExtendedString() (out string) {
 	out = u.String() + "0000"
 	return
 }

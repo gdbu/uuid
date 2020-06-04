@@ -57,7 +57,7 @@ func TestUUIDString(context *testing.T) {
 	result := test.Equals(randomPrefix + expectedSuffix)
 	test.Validate(result)
 
-	test = simply.Target(id.MSString(), context, "Test microsoft UUID format")
+	test = simply.Target(id.ExtendedString(), context, "Test microsoft UUID format")
 	result = test.Equals(randomPrefix + expectedMSPredicate)
 	test.Validate(result)
 }
