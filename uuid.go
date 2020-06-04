@@ -62,6 +62,12 @@ func (u *UUID) String() (out string) {
 	return
 }
 
+// ExtendedString will return the microsoft format string representation of a UUID
+func (u *UUID) ExtendedString() (out string) {
+	out = u.String() + "0000"
+	return
+}
+
 // Time will return an associated time
 func (u *UUID) Time() (out time.Time) {
 	// Make a byteslice with a size of 8 bytes (same size as int64)
