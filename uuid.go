@@ -62,6 +62,29 @@ func (u *UUID) String() (out string) {
 	return
 }
 
+// MSString will return the microsoft format string representation of a UUID
+func (u *UUID) MSString() (out string) {
+	// Make a byteslice with a capacity of stringLen
+	// Note: The string length is greater than the hex length, this provides us space
+	// to add our UUID separators after encoding to hexidecimal
+	bs := make([]byte, stringLen)
+	// Encode our UUID bytes as hexidecimal to our byteslice
+	hex.Encode(bs, u[:])
+	for i := 0; i < len(bs); i++ {
+		// Switch on index
+		switch i {
+		// Separator index case
+		case separator1, separator2, separator3, separator4:
+			// Our index matches a separator index, prepend separator byte to this index
+			prependByte(bs[i:], separator)
+		}
+	}
+
+	// Convert byteslice to outbound string
+	out = string(bs) + "0000"
+	return
+}
+
 // Time will return an associated time
 func (u *UUID) Time() (out time.Time) {
 	// Make a byteslice with a size of 8 bytes (same size as int64)
