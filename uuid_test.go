@@ -41,14 +41,14 @@ func TestUUID(t *testing.T) {
 
 func TestUUIDString(context *testing.T) {
 	var (
-		id                  UUID
-		randomPrefix        string
-		expectedSuffix      string
-		expectedMSPredicate string
+		id                     UUID
+		randomPrefix           string
+		expectedSuffix         string
+		expectedExtendedSuffix string
 	)
 
 	expectedSuffix = "-0600-00000000"
-	expectedMSPredicate = "-0600-000000000000"
+	expectedExtendedSuffix = "-0600-000000000000"
 
 	id = newUUID(6)
 	randomPrefix = strings.Split(id.String(), expectedSuffix)[0]
@@ -58,7 +58,7 @@ func TestUUIDString(context *testing.T) {
 	test.Validate(result)
 
 	test = simply.Target(id.ExtendedString(), context, "Test microsoft UUID format")
-	result = test.Equals(randomPrefix + expectedMSPredicate)
+	result = test.Equals(randomPrefix + expectedExtendedSuffix)
 	test.Validate(result)
 }
 
