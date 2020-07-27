@@ -1,5 +1,8 @@
-module github.com/Hatch1fy/uuid
+module github.com/gdbu/uuid
 
 go 1.14
 
-require github.com/hatchify/simply v0.0.17
+require (
+	github.com/gdbu/uuid v0.4.79
+	github.com/hatchify/simply v0.0.17
+)

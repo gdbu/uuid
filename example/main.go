@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/Hatch1fy/uuid"
+	"github.com/gdbu/uuid"
 )
 
 func main() {
