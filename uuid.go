@@ -78,6 +78,17 @@ func (u *UUID) Time() (out time.Time) {
 	return time.Unix(0, toValue(bs))
 }
 
+// IsZero will return if the UUID is unset
+func (u *UUID) IsZero() (isZero bool) {
+	for i := 0; i < byteLen; i++ {
+		if u[i] != 0 {
+			return
+		}
+	}
+
+	return true
+}
+
 // MarshalJSON is a JSON encoding helper func
 func (u UUID) MarshalJSON() (bs []byte, err error) {
 	// Make the byteslice big enough for our string plus our quotation marks
