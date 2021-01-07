@@ -108,14 +108,3 @@ func (u *UUID) UnmarshalJSON(bs []byte) (err error) {
 	hex.Decode(u[:], strbs[:hexLen])
 	return
 }
-
-func removeSeparators(bs []byte) {
-	// Remove the four separators from the provided byteslice
-	// Note: This will leave zero'd bytes for the removed indexes at the end of the byteslice.
-	// It should be noted that we remove the separators in reverse-order so we ensure
-	// we don't lose any crucial bytes.
-	removeByte(bs, separator4)
-	removeByte(bs, separator3)
-	removeByte(bs, separator2)
-	removeByte(bs, separator1)
-}
