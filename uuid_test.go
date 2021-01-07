@@ -21,7 +21,7 @@ func TestUUID(t *testing.T) {
 		err error
 	)
 
-	ts.UUID = newUUID(6)
+	ts.UUID = makeUUID(6)
 
 	// Attempt to marshal the test struct
 	if bs, err = json.Marshal(ts); err != nil {
@@ -50,7 +50,7 @@ func TestUUID_String(t *testing.T) {
 	expectedSuffix = "-0600-00000000"
 	expectedExtendedSuffix = "-0600-000000000000"
 
-	id = newUUID(6)
+	id = makeUUID(6)
 	randomPrefix = strings.Split(id.String(), expectedSuffix)[0]
 
 	test := simply.Target(id.String(), t, "Test standard UUID format")
@@ -68,7 +68,7 @@ func TestUUID_IsZero(t *testing.T) {
 		t.Fatal("received non-zero value when zero value was expected")
 	}
 
-	id = New()
+	id = Make()
 
 	if id.IsZero() {
 		t.Fatal("received zero value when non-zero value was expected")
@@ -77,7 +77,7 @@ func TestUUID_IsZero(t *testing.T) {
 
 func BenchmarkUUID(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		uuidSink = New()
+		uuidSink = Make()
 	}
 
 	b.ReportAllocs()
@@ -86,7 +86,7 @@ func BenchmarkUUID(b *testing.B) {
 func BenchmarkUUIDParallel(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
-			uuidSink = New()
+			uuidSink = Make()
 		}
 	})
 

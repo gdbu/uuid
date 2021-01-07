@@ -23,13 +23,18 @@ var (
 )
 
 // New will return a new UUID utilizing the global generator
-func New() UUID {
+func New() *UUID {
 	return global.New()
 }
 
-// newUUID will return a new UUID from a provided value
+// Make will make a UUID utilizing the global generator
+func Make() UUID {
+	return global.Make()
+}
+
+// makeUUID will return an initialized UUID from a provided value
 // Note: The provided value will be truncated from 8 bytes to 6 bytes
-func newUUID(value int64) (u UUID) {
+func makeUUID(value int64) (u UUID) {
 	ts := toBytes(time.Now().UnixNano())
 	copy(u[:8], ts)
 	copy(u[8:], toBytes(value)[:6])
